@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi import status
 
 # ------ Models
-from models import User, UserLogin, Tweet
+from models import User, UserLogin, UserRegister, Tweet
 
 
 app = FastAPI()
@@ -19,6 +19,19 @@ app = FastAPI()
     tags=["User"]
     )
 def singup():
+    """ Register a user in the app
+
+    Parameters: 
+        - Request body parameter
+            - user: UserRegister    
+    Returns a json with the basic user information
+        - user_is: UUID
+        - email: Emailstr
+        - first_name: str
+        - last_name: str
+        - birth_date: datetime
+
+    """
     return 0
 
 @app.post(
