@@ -1,7 +1,10 @@
+import json
+from uuid import uuid4
 from typing import List
 # ------ FastAPI
 from fastapi import FastAPI
 from fastapi import status
+from fastapi import Body
 
 # ------ Models
 from models import User, UserLogin, UserRegister, Tweet
@@ -18,7 +21,7 @@ app = FastAPI()
     summary="Register a user",
     tags=["User"]
     )
-def singup():
+def singup(user: UserRegister = Body()):
     """ Register a user in the app
 
     Parameters: 
@@ -32,7 +35,16 @@ def singup():
         - birth_date: datetime
 
     """
-    return 0
+    with open("users.json", "r+", encoding="utf8") as file:
+        data = json.loads(file.read())
+        user_register = dict(user)
+        user_register['user_id'] = str(uuid4())
+        user_register['birth_date'] = str(user_register['birth_date'])
+        data.append(user_register)
+        file.seek(0)
+        file.write(json.dumps(data))
+        return user
+
 
 @app.post(
     path="/login",
