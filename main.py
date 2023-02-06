@@ -122,21 +122,21 @@ def update_user():
     tags=["Tweets"]
 )
 def home():
-    """ Show all users in the app
+    """ Show all tweets in the app
 
     Parameters: 
         -    
     Returns a json with the basic tweet information
-        - user_is: UUID
-        - email: Emailstr
-        - first_name: str
-        - last_name: str
-        - birth_date: datetime
+        tweet_id: UUID 
+        content: str 
+        created_at: datetime 
+        updated_at: Optional[datetime]
+        by: User
 
     """
     with open("tweets.json", "r", encoding="utf-8") as f:
         data = json.loads(f.read())
-        return data
+        return JSONResponse(data)
 
 
 @app.post(
