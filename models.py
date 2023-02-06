@@ -9,7 +9,7 @@ from pydantic import Field
 
 
 class UserBase(BaseModel):
-    user_id: UUID = Field(default_factory=uuid4)
+    user_id: UUID = Field()
     email: EmailStr = Field()
 
 class UserLogin(UserBase):
@@ -27,5 +27,5 @@ class Tweet(BaseModel):
     tweet_id: UUID = Field()
     content: str = Field(min_length=1, max_length=256)
     created_at: datetime = Field(default=datetime.now())
-    update_at: Optional[datetime] = Field(default=None)
+    updated_at: Optional[datetime] = Field(default=None)
     by: User = Field()

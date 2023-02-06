@@ -1,1 +1,48 @@
-[]
+[
+    {
+        "tweet_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "content": "first tweet in the history",
+        "created_at": "2023-02-06 12:44:13.001690",
+        "updated_at": "2023-02-06 18:44:28.823000+00:00",
+        "by": "user_id=UUID('3fa85f64-5717-4562-b3fc-2c963f66afa6') email='user@example.com' first_name='Jesus' last_name='Cruz' birth_date=datetime.date(2023, 2, 6)"
+    },
+    {
+        "tweet_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "content": "string",
+        "created_at": "2023-02-06T13:01:10.042457",
+        "updated_at": "2023-02-06T19:01:39.407000+00:00",
+        "by": {
+            "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "email": "user@example.com",
+            "first_name": "string",
+            "last_name": "string",
+            "birth_date": "2023-02-06"
+        }
+    },
+    {
+        "tweet_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "content": "string",
+        "created_at": "2023-02-06T13:01:10.042457",
+        "updated_at": "2023-02-06T19:01:39.407000+00:00",
+        "by": {
+            "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "email": "user@example.com",
+            "first_name": "Jesus",
+            "last_name": "Domin",
+            "birth_date": "2023-02-06"
+        }
+    },
+    {
+        "tweet_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "content": "string",
+        "created_at": "2023-02-06T13:01:10.042457",
+        "updated_at": "2023-02-06T19:01:39.407000+00:00",
+        "by": {
+            "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "email": "user@example.com",
+            "first_name": "Jesus",
+            "last_name": "Domin",
+            "birth_date": "2023-02-06"
+        }
+    }
+]

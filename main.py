@@ -4,6 +4,8 @@ from typing import List
 # ------ FastAPI
 from fastapi import FastAPI
 from fastapi import status
+from fastapi.encoders import jsonable_encoder
+from fastapi.responses import JSONResponse
 from fastapi import Body
 
 # ------ Models
@@ -38,7 +40,7 @@ def singup(user: UserRegister = Body()):
     with open("users.json", "r+", encoding="utf8") as file:
         data = json.loads(file.read())
         user_register = dict(user)
-        user_register['user_id'] = str(uuid4())
+        user_register['user_id'] = str(user_register['user_id'])
         user_register['birth_date'] = str(user_register['birth_date'])
         data.append(user_register)
         file.seek(0)
@@ -114,13 +116,28 @@ def update_user():
 
 @app.get(
     path="/",
-    # response_model=List[Tweet],
+    response_model=List[Tweet],
     status_code=status.HTTP_200_OK,
     summary="Get all Tweets",
     tags=["Tweets"]
 )
 def home():
-    return {"Twitter api": "Working"}
+    """ Show all users in the app
+
+    Parameters: 
+        -    
+    Returns a json with the basic tweet information
+        - user_is: UUID
+        - email: Emailstr
+        - first_name: str
+        - last_name: str
+        - birth_date: datetime
+
+    """
+    with open("tweets.json", "r", encoding="utf-8") as f:
+        data = json.loads(f.read())
+        return data
+
 
 @app.post(
     path=("/post"),
@@ -128,9 +145,38 @@ def home():
     status_code=status.HTTP_201_CREATED,
     summary="Post a tweet",
     tags=["Tweets"]
-)
-def post():
-    return 0
+    )
+def post(tweet: Tweet = Body()):
+    """ Post a tweet in the app
+
+    Parameters: 
+        - Request body parameter
+            - tweet: Tweet    
+    Returns a json with the basic user information
+        tweet_id: UUID 
+        content: str 
+        created_at: datetime 
+        updated_at: Optional[datetime]
+        by: User 
+
+    """
+    with open("tweets.json", "r+", encoding="utf8") as file:
+        #Cargar los datos desde el archivo
+        data = json.loads(file.read())
+        #Convirtiendo el objeto tweet a un archivo json
+        json_compatible_tweet_data = jsonable_encoder(tweet)
+        #Gregando el tweet en formato json a la data
+        data.append(json_compatible_tweet_data)
+
+        #Moviendo el puntero al principio del diccionario del archivo
+        file.seek(0)
+        #Escribiendo la data modificada en el archivo(file), por medio del metodo dump
+        json.dump(data, file, indent=4)
+        #Truncar el archivo al los datos escritos
+        file.truncate()
+        #JSONResponse -> toma la data que es pasada por parametros y retrna un json codificado
+        return JSONResponse(content=data)
+
 
 @app.get(
     path="/tweets/{tweet_id}",
