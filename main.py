@@ -64,7 +64,21 @@ def login():
     tags=["User"]
     )
 def get_users():
-    return 0
+    """ Show all users in the app
+
+    Parameters: 
+        -    
+    Returns a json with the basic user information
+        - user_is: UUID
+        - email: Emailstr
+        - first_name: str
+        - last_name: str
+        - birth_date: datetime
+
+    """
+    with open("users.json", "r", encoding="utf-8") as f:
+        data = json.loads(f.read())
+        return data
 
 @app.get(
     path="/users/{user_id}",
